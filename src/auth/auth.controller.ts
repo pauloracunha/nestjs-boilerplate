@@ -12,38 +12,25 @@ import {
 import { Response } from 'express';
 import { Public } from './guards/auth.guard';
 import { AuthService } from './auth.service';
-import { SignUpDto } from './dto/singup.dto';
+import { SignInDto, SignUpDto } from './dto/singup.dto';
 import { LocalAuthGuard } from './guards/local.guard';
 import { RequestWithUser } from './dto/request.dto';
-import { ApiBody, ApiCookieAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBody,
+  ApiCookieAuth,
+  ApiTags,
+  getSchemaPath,
+} from '@nestjs/swagger';
 import { User } from '@prisma/client';
 
 @ApiTags('auth')
-@Controller()
+@Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Public()
   @Post('singup')
-  @ApiBody({
-    schema: {
-      type: 'object',
-      properties: {
-        name: {
-          type: 'string',
-        },
-        email: {
-          type: 'string',
-        },
-        username: {
-          type: 'string',
-        },
-        password: {
-          type: 'string',
-        },
-      },
-    },
-  })
+  @ApiBody({ schema: { $ref: getSchemaPath(SignUpDto) } })
   async signUp(@Body() signUpDto: SignUpDto): Promise<Omit<User, 'password'>> {
     return this.authService.signUp(signUpDto);
   }
@@ -51,17 +38,7 @@ export class AuthController {
   @Public()
   @UseGuards(LocalAuthGuard)
   @ApiBody({
-    schema: {
-      type: 'object',
-      properties: {
-        username: {
-          type: 'string',
-        },
-        password: {
-          type: 'string',
-        },
-      },
-    },
+    schema: { $ref: getSchemaPath(SignInDto) },
   })
   @Post('singin')
   async signIn(@Req() req, @Res() res: Response) {
