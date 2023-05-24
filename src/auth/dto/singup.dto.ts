@@ -13,11 +13,3 @@ export class SignUpDto {
   @IsString()
   readonly password: string;
 }
-
-export class SignInDto {
-  @IsString()
-  readonly username: string;
-
-  @IsString()
-  readonly password: string;
-}

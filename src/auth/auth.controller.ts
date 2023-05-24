@@ -12,7 +12,7 @@ import {
 import { Response } from 'express';
 import { Public } from './guards/auth.guard';
 import { AuthService } from './auth.service';
-import { SignInDto, SignUpDto } from './dto/singup.dto';
+import { SignUpDto } from './dto/singup.dto';
 import { LocalAuthGuard } from './guards/local.guard';
 import { RequestWithUser } from './dto/request.dto';
 import {
@@ -22,6 +22,7 @@ import {
   getSchemaPath,
 } from '@nestjs/swagger';
 import { User } from '@prisma/client';
+import { SignInDto } from './dto/singin.dto';
 
 @ApiTags('auth')
 @Controller('auth')
