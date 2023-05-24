@@ -1,15 +1,16 @@
 version: '3'
 
 services:
-    db:
-        image: mysql:8
-        container_name: role-db
-        ports:
-            - 3306:3306
-        expose:
-            - 3306
-        volumes:
-            - .docker/mysql:/var/lib/mysql
-        environment:
-            MYSQL_DATABASE: rolecerto
-            MYSQL_ROOT_PASSWORD: ${DATABASE_PASSWORD}
+  db:
+    image: mysql:8
+    container_name: role-db
+    ports:
+      - 3306:3306
+    expose:
+      - 3306
+    volumes:
+      - .docker/mysql:/var/lib/mysql
+    user: mysql
+    environment:
+      MYSQL_DATABASE: ${DATABASE_NAME}
+      MYSQL_ROOT_PASSWORD: ${DATABASE_PASSWORD}

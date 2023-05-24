@@ -1,0 +1,45 @@
+
+@hostApi=http://127.0.0.1:3001
+
+{{+after
+  console.log(JSON.stringify(response, ' ', 2));
+}}
+
+
+
+###
+# @name signUp
+
+POST {{hostApi}}/auth/singup
+Content-Type: application/json
+{
+  "name": "Lucas",
+  "email": "lucsa.dev@gmail.com",
+  "username": "lucsa-dev",
+  "password": "12345"
+}
+
+
+###
+# @name singin
+
+POST {{hostApi}}/auth/singin
+Content-Type: application/json
+{
+  "username": "lucsa-dev",
+  "password": "12345"
+}
+
+
+###
+# @name logout
+
+POST {{hostApi}}/auth/logout
+Content-Type: application/json
+
+
+###
+# @name profile
+
+GET {{hostApi}}/auth/profile
+Content-Type: application/json
