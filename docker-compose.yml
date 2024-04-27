@@ -3,7 +3,6 @@ version: '3'
 services:
   db:
     image: mysql:8
-    container_name: role-db
     ports:
       - 3306:3306
     expose:

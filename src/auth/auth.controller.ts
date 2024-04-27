@@ -31,18 +31,14 @@ export class AuthController {
 
   @Public()
   @Post('singup')
-  @ApiBody({ schema: { $ref: getSchemaPath(SignUpDto) } })
   async signUp(@Body() signUpDto: SignUpDto): Promise<Omit<User, 'password'>> {
     return this.authService.signUp(signUpDto);
   }
 
   @Public()
   @UseGuards(LocalAuthGuard)
-  @ApiBody({
-    schema: { $ref: getSchemaPath(SignInDto) },
-  })
   @Post('singin')
-  async signIn(@Req() req, @Res() res: Response) {
+  async signIn(@Body() body: SignInDto, @Req() req, @Res() res: Response) {
     const auth = await this.authService.signIn(req.user);
     res.cookie(
       process.env.ACCESS_TOKEN_COOKIE_NAME,
